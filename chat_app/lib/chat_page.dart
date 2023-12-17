@@ -1,4 +1,5 @@
 import 'package:chat_app/widgets/chat_bubble.dart';
+import 'package:chat_app/widgets/chat_input.dart';
 import 'package:flutter/material.dart';
 
 class ChatPage extends StatelessWidget {
@@ -16,38 +17,18 @@ class ChatPage extends StatelessWidget {
       body: Column(
         children: [
           Expanded(
-            child: ListView(
-              children: const [
-                ChatBubble(alignment: Alignment.centerRight, message: 'Hi, this is Robin!',),
-                ChatBubble(alignment: Alignment.centerLeft, message: 'Hi, this is Bill!',),
-                ChatBubble(alignment: Alignment.centerLeft, message: 'How are you?',),
-              ],
-            ),
+            child: ListView.builder(
+                itemCount: 10,
+                itemBuilder: (context, index) {
+                  return ChatBubble(
+                    alignment: index % 2 == 0
+                        ? Alignment.centerLeft
+                        : Alignment.centerRight,
+                    message: 'Hi Robin!',
+                  );
+                }),
           ),
-          // Chat Input
-          Container(
-            height: 100,
-            decoration: const BoxDecoration(
-                color: Colors.black,
-                borderRadius: BorderRadius.vertical(top: Radius.circular(20))),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.add,
-                      color: Colors.white70,
-                    )),
-                IconButton(
-                    onPressed: () {},
-                    icon: const Icon(
-                      Icons.send,
-                      color: Colors.white70,
-                    )),
-              ],
-            ),
-          )
+          const ChatInput()
         ],
       ),
     );
