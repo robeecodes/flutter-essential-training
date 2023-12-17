@@ -1,5 +1,5 @@
+import 'package:chat_app/widgets/chat_bubble.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class ChatPage extends StatelessWidget {
   const ChatPage({super.key});
@@ -13,101 +13,18 @@ class ChatPage extends StatelessWidget {
         title: const Text("Hi Robin!"),
         actions: [IconButton(onPressed: () {}, icon: const Icon(Icons.logout))],
       ),
-      body: ListView(
+      body: Column(
         children: [
-          Align(
-            alignment: Alignment.centerLeft,
-            child: Container(
-              margin: const EdgeInsets.all(50),
-              padding: const EdgeInsets.all(24),
-              decoration: const BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular((12)),
-                      topRight: Radius.circular(12),
-                      bottomLeft: Radius.circular(12))),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Hi, this is your message',
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          color: Colors.white70,
-                          letterSpacing: .5,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  Image.network(
-                      'https://3009709.youcanlearnit.net/Alien_LIL_131338.png',
-                      height: 200)
-                ],
-              ),
+          Expanded(
+            child: ListView(
+              children: const [
+                ChatBubble(alignment: Alignment.centerRight, message: 'Hi, this is Robin!',),
+                ChatBubble(alignment: Alignment.centerLeft, message: 'Hi, this is Bill!',),
+                ChatBubble(alignment: Alignment.centerLeft, message: 'How are you?',),
+              ],
             ),
           ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              margin: const EdgeInsets.all(50),
-              padding: const EdgeInsets.all(24),
-              decoration: const BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular((12)),
-                      topRight: Radius.circular(12),
-                      bottomLeft: Radius.circular(12))),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Hi, this is your message',
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          color: Colors.white70,
-                          letterSpacing: .5,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  Image.network(
-                      'https://3009709.youcanlearnit.net/Alien_LIL_131338.png',
-                      height: 200)
-                ],
-              ),
-            ),
-          ),
-          Align(
-            alignment: Alignment.centerRight,
-            child: Container(
-              margin: const EdgeInsets.all(50),
-              padding: const EdgeInsets.all(24),
-              decoration: const BoxDecoration(
-                  color: Colors.blue,
-                  borderRadius: BorderRadius.only(
-                      topLeft: Radius.circular((12)),
-                      topRight: Radius.circular(12),
-                      bottomLeft: Radius.circular(12))),
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text(
-                    'Hi, this is your message',
-                    style: GoogleFonts.poppins(
-                      textStyle: const TextStyle(
-                          color: Colors.white70,
-                          letterSpacing: .5,
-                          fontSize: 16,
-                          fontWeight: FontWeight.w600),
-                    ),
-                  ),
-                  Image.network(
-                      'https://3009709.youcanlearnit.net/Alien_LIL_131338.png',
-                      height: 200)
-                ],
-              ),
-            ),
-          ),
+          // Chat Input
           Container(
             height: 100,
             decoration: const BoxDecoration(
