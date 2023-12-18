@@ -28,7 +28,7 @@ class ChatPage extends StatelessWidget {
                   );
                 }),
           ),
-          const ChatInput()
+          ChatInput()
         ],
       ),
     );

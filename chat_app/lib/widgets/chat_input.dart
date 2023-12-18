@@ -1,7 +1,13 @@
 import 'package:flutter/material.dart';
 
 class ChatInput extends StatelessWidget {
-  const ChatInput({super.key});
+  ChatInput({super.key});
+
+  final chatMessageController = TextEditingController();
+
+  void onSendPressed() {
+    print(chatMessageController.text);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +25,21 @@ class ChatInput extends StatelessWidget {
                 Icons.add,
                 color: Colors.white70,
               )),
+          Expanded(
+              child: TextField(
+                keyboardType: TextInputType.multiline,
+            minLines: 1,
+            maxLines: 5,
+            controller: chatMessageController,
+            textCapitalization: TextCapitalization.sentences,
+            style: const TextStyle(color: Colors.white70),
+            decoration: const InputDecoration(
+                border: InputBorder.none,
+                hintText: 'Type your message',
+                hintStyle: TextStyle(color: Colors.white30)),
+          )),
           IconButton(
-              onPressed: () {},
+              onPressed: () => onSendPressed(),
               icon: const Icon(
                 Icons.send,
                 color: Colors.white70,
