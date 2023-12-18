@@ -1,21 +1,21 @@
+import 'package:chat_app/chat_page.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatelessWidget {
-  LoginPage({super.key});
-
   final _formkey = GlobalKey<FormState>();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
-  void loginUser() {
+  LoginPage({super.key});
+
+  void loginUser(context) {
     if (_formkey.currentState!.validate()) {
-      print(usernameController.text);
-      print(passwordController.text);
+      Navigator.pushReplacementNamed(context, '/chat',
+          arguments: usernameController.text);
     } else {
       print('Failed :(');
     }
-
   }
 
   @override
@@ -61,9 +61,9 @@ class LoginPage extends StatelessWidget {
                   children: [
                     TextFormField(
                       validator: (value) {
-                        if (value != null
-                            && value.isNotEmpty
-                            && value.length < 5) {
+                        if (value != null &&
+                            value.isNotEmpty &&
+                            value.length < 5) {
                           return 'Your username should be more than 5 characters';
                         } else if (value != null && value.isEmpty) {
                           return 'Please type your username';
@@ -92,7 +92,7 @@ class LoginPage extends StatelessWidget {
               ),
               ElevatedButton(
                   onPressed: () {
-                    loginUser();
+                    loginUser(context);
                   },
                   style: ElevatedButton.styleFrom(
                       backgroundColor: Colors.deepOrange),

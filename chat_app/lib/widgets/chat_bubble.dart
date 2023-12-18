@@ -15,7 +15,7 @@ class ChatBubble extends StatelessWidget {
         margin: const EdgeInsets.all(50),
         padding: const EdgeInsets.all(24),
         decoration: const BoxDecoration(
-            color: Colors.blue,
+            color: Colors.deepOrange,
             borderRadius: BorderRadius.only(
                 topLeft: Radius.circular((12)),
                 topRight: Radius.circular(12),
@@ -27,10 +27,10 @@ class ChatBubble extends StatelessWidget {
               message,
               style: GoogleFonts.poppins(
                 textStyle: const TextStyle(
-                    color: Colors.white70,
-                    letterSpacing: .5,
-                    fontSize: 16,
-                    fontWeight: FontWeight.w600),
+                  color: Colors.white70,
+                  letterSpacing: .5,
+                  fontSize: 14,
+                ),
               ),
             ),
             Image.network(
