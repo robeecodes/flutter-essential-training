@@ -17,6 +17,7 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   List<ChatMessageEntity> _messages = [];
+  ScrollController _scrollController = ScrollController();
 
   _initMessages() async {
     final response =
@@ -27,11 +28,22 @@ class _ChatPageState extends State<ChatPage> {
     final List<ChatMessageEntity> _chatMessages =
         decodedList.map((item) => ChatMessageEntity.fromJson(item)).toList();
 
-    print("peeeeee ${_chatMessages.length}");
-
     setState(() {
       _messages = _chatMessages;
     });
+  }
+
+  onMessageSent(ChatMessageEntity entity) {
+    _messages.add(entity);
+
+    setState(() {});
+
+    WidgetsBinding.instance
+        .addPostFrameCallback((_) => _scrollController.animateTo(
+              _scrollController.position.maxScrollExtent,
+              duration: const Duration(milliseconds: 400),
+              curve: Curves.ease,
+            ));
   }
 
   @override
@@ -67,6 +79,7 @@ class _ChatPageState extends State<ChatPage> {
         children: [
           Expanded(
             child: ListView.builder(
+                controller: _scrollController,
                 itemCount: _messages.length,
                 itemBuilder: (context, index) {
                   return ChatBubble(
@@ -76,7 +89,7 @@ class _ChatPageState extends State<ChatPage> {
                       entity: _messages[index]);
                 }),
           ),
-          ChatInput()
+          ChatInput(onSubmit: onMessageSent)
         ],
       ),
     );

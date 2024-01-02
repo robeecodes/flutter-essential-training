@@ -13,7 +13,12 @@ class ChatMessageEntity {
       required this.createdAt});
 
   factory ChatMessageEntity.fromJson(Map<String, dynamic> json) {
-    return ChatMessageEntity(text: json['text'], id: json['id'], author: Author.fromJson(json['author']), createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt']));
+    return ChatMessageEntity(
+        text: json['text'],
+        imageUrl: json['image'],
+        id: json['id'],
+        author: Author.fromJson(json['author']),
+        createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt']));
   }
 }
 
