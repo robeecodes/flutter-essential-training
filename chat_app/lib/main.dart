@@ -1,3 +1,4 @@
+import 'package:chat_app/utils/brand_colour.dart';
 import 'package:flutter/material.dart';
 import 'chat_page.dart';
 import 'login_page.dart';
@@ -13,7 +14,7 @@ class ChatApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Chat App',
-      theme: ThemeData(colorSchemeSeed: Colors.orange),
+      theme: ThemeData(colorSchemeSeed: BrandColour.primaryColour),
       home: LoginPage(),
       routes: {
         '/chat': (context) => ChatPage()

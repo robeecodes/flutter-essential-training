@@ -1,4 +1,5 @@
 import 'package:chat_app/chat_page.dart';
+import 'package:chat_app/utils/spaces.dart';
 import 'package:chat_app/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
@@ -75,17 +76,13 @@ class LoginPage extends StatelessWidget {
                         }
                       },
                     ),
-                    const SizedBox(
-                      height: 12,
-                    ),
+                    verticalSpacing(24),
                     LoginTextField(
                       controller: passwordController,
                       hintText: 'Password',
                       obscureText: true,
                     ),
-                    const SizedBox(
-                      height: 12,
-                    ),
+                    verticalSpacing(12),
                   ],
                 ),
               ),
