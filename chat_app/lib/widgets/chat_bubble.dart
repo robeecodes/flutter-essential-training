@@ -1,11 +1,13 @@
+import 'package:chat_app/models/chat_message_entity.dart';
+import 'package:chat_app/utils/brand_colour.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChatBubble extends StatelessWidget {
+  final ChatMessageEntity entity;
   final Alignment alignment;
-  final String message;
 
-  const ChatBubble({super.key, required this.alignment, required this.message});
+  const ChatBubble({super.key, required this.alignment, required this.entity});
 
   @override
   Widget build(BuildContext context) {
@@ -14,9 +16,9 @@ class ChatBubble extends StatelessWidget {
       child: Container(
         margin: const EdgeInsets.all(50),
         padding: const EdgeInsets.all(24),
-        decoration: const BoxDecoration(
-            color: Colors.deepOrange,
-            borderRadius: BorderRadius.only(
+        decoration: BoxDecoration(
+            color: BrandColour.secondaryColour,
+            borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular((12)),
                 topRight: Radius.circular(12),
                 bottomLeft: Radius.circular(12))),
@@ -24,18 +26,17 @@ class ChatBubble extends StatelessWidget {
           mainAxisSize: MainAxisSize.min,
           children: [
             Text(
-              message,
+              entity.text,
               style: GoogleFonts.poppins(
                 textStyle: const TextStyle(
-                  color: Colors.white70,
+                  color: Colors.white,
                   letterSpacing: .5,
                   fontSize: 14,
                 ),
               ),
             ),
-            Image.network(
-                'https://3009709.youcanlearnit.net/Alien_LIL_131338.png',
-                height: 200)
+            if (entity.imageUrl != null)
+              Image.network('${entity.imageUrl}', height: 200)
           ],
         ),
       ),
