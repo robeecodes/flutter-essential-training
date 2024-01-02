@@ -1,16 +1,17 @@
 import 'package:chat_app/chat_page.dart';
+import 'package:chat_app/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class LoginPage extends StatelessWidget {
-  final _formkey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormState>();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
 
   LoginPage({super.key});
 
   void loginUser(context) {
-    if (_formkey.currentState!.validate()) {
+    if (_formKey.currentState!.validate()) {
       Navigator.pushReplacementNamed(context, '/chat',
           arguments: usernameController.text);
     } else {
@@ -56,10 +57,12 @@ class LoginPage extends StatelessWidget {
                   'https://3009709.youcanlearnit.net/Alien_LIL_131338.png',
                   height: 200),
               Form(
-                key: _formkey,
+                key: _formKey,
                 child: Column(
                   children: [
-                    TextFormField(
+                    LoginTextField(
+                      controller: usernameController,
+                      hintText: 'Username',
                       validator: (value) {
                         if (value != null &&
                             value.isNotEmpty &&
@@ -71,18 +74,14 @@ class LoginPage extends StatelessWidget {
                           return null;
                         }
                       },
-                      controller: usernameController,
-                      decoration: const InputDecoration(
-                          hintText: 'Username', border: OutlineInputBorder()),
                     ),
                     const SizedBox(
                       height: 12,
                     ),
-                    TextFormField(
+                    LoginTextField(
                       controller: passwordController,
+                      hintText: 'Password',
                       obscureText: true,
-                      decoration: const InputDecoration(
-                          hintText: 'Password', border: OutlineInputBorder()),
                     ),
                     const SizedBox(
                       height: 12,
