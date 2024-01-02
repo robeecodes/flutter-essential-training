@@ -11,10 +11,18 @@ class ChatMessageEntity {
       required this.id,
       required this.author,
       required this.createdAt});
+
+  factory ChatMessageEntity.fromJson(Map<String, dynamic> json) {
+    return ChatMessageEntity(text: json['text'], id: json['id'], author: Author.fromJson(json['author']), createdAt: DateTime.fromMillisecondsSinceEpoch(json['createdAt']));
+  }
 }
 
 class Author {
   final String username;
 
   Author({required this.username});
+
+  factory Author.fromJson(Map<String, dynamic> json) {
+    return Author(username: json['username']);
+  }
 }
