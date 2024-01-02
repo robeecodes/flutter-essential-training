@@ -1,13 +1,17 @@
-import 'package:chat_app/chat_page.dart';
+import 'package:chat_app/utils/brand_colour.dart';
 import 'package:chat_app/utils/spaces.dart';
 import 'package:chat_app/widgets/login_text_field.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:social_media_buttons/social_media_button.dart';
+import 'package:social_media_buttons/social_media_buttons.dart';
 
 class LoginPage extends StatelessWidget {
   final _formKey = GlobalKey<FormState>();
   final usernameController = TextEditingController();
   final passwordController = TextEditingController();
+  final _mainUrl = 'https://github.com/robeecodes';
 
   LoginPage({super.key});
 
@@ -54,9 +58,7 @@ class LoginPage extends StatelessWidget {
                       fontSize: 24),
                 ),
               ),
-              Image.network(
-                  'https://3009709.youcanlearnit.net/Alien_LIL_131338.png',
-                  height: 200),
+              Image.asset('lib/assets/banner_image.png', height: 200),
               Form(
                 key: _formKey,
                 child: Column(
@@ -102,16 +104,28 @@ class LoginPage extends StatelessWidget {
                             fontSize: 22)),
                   )),
               GestureDetector(
-                onTap: () {
-                  // TODO: Navigate to browser
-                  print('Click!');
+                onTap: () async {
+                  if (!await launch(_mainUrl)) {
+                    throw 'Could not launch this!';
+                  }
                 },
-                child: const Column(
+                child: Column(
                   children: [
-                    Text('Find me at'),
-                    Text('https://github.com/robeecodes'),
+                    const Text('Find me at'),
+                    Text(_mainUrl),
                   ],
                 ),
+              ),
+              //TODO: Add Social Media Buttons
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SocialMediaButton.linkedin(
+                      url: 'https://www.linkedin.com/in/robin-kingy/',
+                      color: BrandColour.primaryColour),
+                  SocialMediaButton.github(
+                      url: _mainUrl, color: BrandColour.primaryColour)
+                ],
               )
             ],
           ),
