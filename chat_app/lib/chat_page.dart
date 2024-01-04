@@ -1,6 +1,8 @@
 import 'dart:convert';
 
+import 'package:http/http.dart' as http;
 import 'package:chat_app/models/chat_message_entity.dart';
+import 'package:chat_app/models/image_model.dart';
 import 'package:chat_app/utils/brand_colour.dart';
 import 'package:chat_app/widgets/chat_bubble.dart';
 import 'package:chat_app/widgets/chat_input.dart';
@@ -9,7 +11,7 @@ import 'package:flutter/services.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ChatPage extends StatefulWidget {
-  ChatPage({super.key});
+  const ChatPage({super.key});
 
   @override
   State<ChatPage> createState() => _ChatPageState();
@@ -17,19 +19,18 @@ class ChatPage extends StatefulWidget {
 
 class _ChatPageState extends State<ChatPage> {
   List<ChatMessageEntity> _messages = [];
-  ScrollController _scrollController = ScrollController();
+  final ScrollController _scrollController = ScrollController();
 
   _initMessages() async {
-    final response =
-        await rootBundle.loadString('lib/assets/mock_messages.json');
+    rootBundle.loadString('lib/assets/mock_messages.json').then((response) {
+      final List<dynamic> decodedList = jsonDecode(response) as List;
 
-    final List<dynamic> decodedList = jsonDecode(response) as List;
+      final List<ChatMessageEntity> _chatMessages =
+          decodedList.map((item) => ChatMessageEntity.fromJson(item)).toList();
 
-    final List<ChatMessageEntity> _chatMessages =
-        decodedList.map((item) => ChatMessageEntity.fromJson(item)).toList();
-
-    setState(() {
-      _messages = _chatMessages;
+      setState(() {
+        _messages = _chatMessages;
+      });
     });
   }
 
@@ -46,9 +47,23 @@ class _ChatPageState extends State<ChatPage> {
             ));
   }
 
+  _getNetworkImages() async {
+    var endpointUrl = Uri.parse('https://api.unsplash.com/photos/?client_id=${UnsplashImage.apiAccess}');
+
+    final response = await http.get(endpointUrl);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> decodedList = jsonDecode(response.body) as List;
+
+      final List<UnsplashImage> _imageList =
+      decodedList.map((item) => UnsplashImage.fromJson(item)).toList();
+    }
+  }
+
   @override
   void initState() {
     _initMessages();
+    _getNetworkImages();
     super.initState();
   }
 
