@@ -47,8 +47,9 @@ class _ChatPageState extends State<ChatPage> {
             ));
   }
 
-  _getNetworkImages() async {
-    var endpointUrl = Uri.parse('https://api.unsplash.com/photos/?client_id=${UnsplashImage.apiAccess}');
+  Future<List<UnsplashImage>> _getNetworkImages() async {
+    var endpointUrl = Uri.parse(
+        'https://api.unsplash.com/photos/?client_id=${UnsplashImage.apiAccess}');
 
     final response = await http.get(endpointUrl);
 
@@ -56,7 +57,11 @@ class _ChatPageState extends State<ChatPage> {
       final List<dynamic> decodedList = jsonDecode(response.body) as List;
 
       final List<UnsplashImage> _imageList =
-      decodedList.map((item) => UnsplashImage.fromJson(item)).toList();
+          decodedList.map((item) => UnsplashImage.fromJson(item)).toList();
+
+      return _imageList;
+    } else {
+      throw Exception('The images don\'t work!!!!! >O< >o<');
     }
   }
 
@@ -92,6 +97,19 @@ class _ChatPageState extends State<ChatPage> {
       ),
       body: Column(
         children: [
+          FutureBuilder<List<UnsplashImage>>(
+              future: _getNetworkImages(),
+              builder: (context, AsyncSnapshot<List<UnsplashImage>> snapshot) {
+                if (snapshot.hasData) {
+                  return Column(children: [
+                    Image.network(snapshot.data![0].urls['regular']),
+                    Text(snapshot.data![0].user.name),
+                    Text(snapshot.data![0].user.url)
+                  ]);
+                }
+
+                return const CircularProgressIndicator();
+              }),
           Expanded(
             child: ListView.builder(
                 controller: _scrollController,
